@@ -11,8 +11,9 @@ namespace QuanLyKho.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Suplier
+    using ViewModel;
+
+    public partial class Suplier : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Suplier()
@@ -21,14 +22,98 @@ namespace QuanLyKho.Model
         }
     
         public int Id { get; set; }
-        public string DisplayName;
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string MoreInfo { get; set; }
-        public Nullable<System.DateTime> DateContract { get; set; }
+        private string _DisplayName;
+        private string _Address ;
+        private string _Phone ;
+        private string _Email ;
+        private string _MoreInfo ;
+        private Nullable<System.DateTime> _DateContract ;
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Object> Objects { get; set; }
+
+        public string DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+
+            set
+            {
+                _DisplayName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Address
+        {
+            get
+            {
+                return _Address;
+            }
+
+            set
+            {
+                _Address = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Phone
+        {
+            get
+            {
+                return _Phone;
+            }
+
+            set
+            {
+                _Phone = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+
+            set
+            {
+                _Email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string MoreInfo
+        {
+            get
+            {
+                return _MoreInfo;
+            }
+
+            set
+            {
+                _MoreInfo = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime? DateContract
+        {
+            get
+            {
+                return _DateContract;
+            }
+
+            set
+            {
+                _DateContract = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

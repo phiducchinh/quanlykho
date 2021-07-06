@@ -22,21 +22,21 @@ namespace QuanLyKho.Model
         }
     
         public string Id { get; set; }
-        private Nullable<System.DateTime> DateOutput;
+        private Nullable<System.DateTime> _DateOutput;
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
 
-        public DateTime? DateOutput1
+        public DateTime? DateOutput
         {
             get
             {
-                return DateOutput;
+                return _DateOutput;
             }
 
             set
             {
-                DateOutput = value;
+                _DateOutput = value;
                 OnPropertyChanged();
             }
         }

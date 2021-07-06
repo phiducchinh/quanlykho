@@ -80,8 +80,8 @@
                                             <GridView>
                                                 <GridViewColumn Header="Vật tư" DisplayMemberBinding="{Binding Object.DisplayName}"></GridViewColumn>
                                                 <GridViewColumn Header="Khách hàng" DisplayMemberBinding="{Binding Customer.DisplayName}"></GridViewColumn>
-                                                <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding InputInfo.Input.DateInput}"></GridViewColumn>
                                                 <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                                                <GridViewColumn Header="Đơn vị" DisplayMemberBinding="{Binding Object.Unit.DisplayName}"></GridViewColumn>
                                                 <GridViewColumn Header="Giá xuất" DisplayMemberBinding="{Binding InputInfo.OutputPrice}"></GridViewColumn>
                                                 <GridViewColumn Header="Trạng thái xuất" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
                                             </GridView>

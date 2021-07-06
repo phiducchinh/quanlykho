@@ -16,6 +16,7 @@ namespace QuanLyKho.ViewModel
         private string _UserName;
         private string _Password;
 
+        public User User { get; set; }
 
         public ICommand LoginCommand { get; set; }
         public ICommand CloseCommand { get; set; }
@@ -67,6 +68,8 @@ namespace QuanLyKho.ViewModel
                 return;
 
             var acc= DataProvider.Ins.DB.Users.Where(x => x.UserName == UserName && x.Password==Password).Count();
+
+            User = DataProvider.Ins.DB.Users.Where(y => y.UserName == UserName).SingleOrDefault();
 
             if (acc > 0)
             {

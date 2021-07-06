@@ -11,6 +11,8 @@
     <viewmodel:CustomerViewModel x:Key="CustomerVM"></viewmodel:CustomerViewModel>
     <viewmodel:InputViewModel x:Key="InputVM"></viewmodel:InputViewModel>
     <viewmodel:OutputViewModel x:Key="OutputVM"></viewmodel:OutputViewModel>
+    <viewmodel:UserViewModel x:Key="UserVM"></viewmodel:UserViewModel>
+
 
 
 

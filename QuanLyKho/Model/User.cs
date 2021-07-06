@@ -11,15 +11,88 @@ namespace QuanLyKho.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class User
+    using ViewModel;
+
+    public partial class User:BaseViewModel
     {
         public int Id { get; set; }
-        public string DisplayName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int IdRole { get; set; }
-    
-        public virtual UserRole UserRole { get; set; }
+
+        public string DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+
+            set
+            {
+                _DisplayName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+
+            set
+            {
+                _UserName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _Password;
+            }
+
+            set
+            {
+                _Password = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int IdRole
+        {
+            get
+            {
+                return _IdRole;
+            }
+
+            set
+            {
+                
+                _IdRole = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual UserRole UserRole
+        {
+            get
+            {
+                return _UserRole;
+            }
+
+            set
+            {
+                _UserRole = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _DisplayName ;
+        private string _UserName ;
+        private string _Password ;
+        private int _IdRole ;
+
+        private  UserRole _UserRole;
     }
 }

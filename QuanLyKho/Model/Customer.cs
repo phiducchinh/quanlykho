@@ -28,7 +28,7 @@ namespace QuanLyKho.Model
         private string _Phone ;
         private string _Email ;
         private string _MoreInfo ;
-        private Nullable<System.DateTime> DateContract ;
+        private Nullable<System.DateTime> _DateContract ;
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OutputInfo> OutputInfoes { get; set; }
@@ -104,6 +104,20 @@ namespace QuanLyKho.Model
                 _MoreInfo = value;
                 OnPropertyChanged();
 
+            }
+        }
+
+        public DateTime? DateContract
+        {
+            get
+            {
+                return _DateContract;
+            }
+
+            set
+            {
+                _DateContract = value;
+                OnPropertyChanged();
             }
         }
     }

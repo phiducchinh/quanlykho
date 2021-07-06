@@ -5,12 +5,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QuanLyKho.ViewModel
 {
-     public class OutputViewModel:BaseViewModel
+     public class OutputViewModel:LoginViewModel
     {
+        LoginViewModel lg = new LoginViewModel();
         private ObservableCollection<Output> _ListOutput;
         private ObservableCollection<OutputInfo> _ListOutputInfo;
         private ObservableCollection<InputInfo> _InputInfoList;
@@ -152,6 +154,11 @@ namespace QuanLyKho.ViewModel
             {
                 _SelectedObject = value;
                 OnPropertyChanged();
+                if (SelectedObject != null)
+                {
+                    InputInfoList = new ObservableCollection<InputInfo>(DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedObject.Id));
+                    SelectedInputInfoList = InputInfoList[0];
+                }
             }
         }
 
@@ -262,6 +269,10 @@ namespace QuanLyKho.ViewModel
             if(SelectedItemOutputInfo !=null ) 
                 InputInfoList = new ObservableCollection<InputInfo>(DataProvider.Ins.DB.InputInfoes.Where(x => x.IdObject == SelectedItemOutputInfo.IdObject));
             */
+
+            var manv = DataProvider.Ins.DB.Users.Where(x => x.UserName == lg.UserName).SingleOrDefault();
+            string name = manv.DisplayName;
+            MessageBox.Show(name);
             ResetCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -302,11 +313,52 @@ namespace QuanLyKho.ViewModel
                     return true;
             }, (p) =>
             {
+                
                 var Outputinfo = new OutputInfo() { Id = Guid.NewGuid().ToString(), IdObject = SelectedObject.Id, IdInputInfo=SelectedInputInfoList.Id, IdOutputInfo=SelectedItemOutput.Id, IdCustomer = SelectedCustomer.Id, Count = Count, Status = Status };
                 DataProvider.Ins.DB.OutputInfoes.Add(Outputinfo);
                 DataProvider.Ins.DB.SaveChanges();
 
                 ListOutputInfo.Add(Outputinfo);
+                
+               
+
+            });
+
+            DeleteCommandOutputInfo = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemOutputInfo == null)
+                    return false;
+                else
+                    return true;
+            }, (p) =>
+            {
+                var inputinfo = DataProvider.Ins.DB.OutputInfoes.SingleOrDefault(x => x.Id == SelectedItemOutputInfo.Id);
+
+                DataProvider.Ins.DB.OutputInfoes.Remove(inputinfo);
+                ListOutputInfo.Remove(inputinfo);
+                DataProvider.Ins.DB.SaveChanges();
+
+            });
+
+            DeleteCommandOutput = new RelayCommand<object>((p) =>
+            {
+                if (SelectedItemOutput == null)
+                    return false;
+                else
+                    return true;
+            }, (p) =>
+            {
+                List<OutputInfo> inputinfo = new List<OutputInfo>(DataProvider.Ins.DB.OutputInfoes.Where(x => x.IdOutputInfo == SelectedItemOutput.Id));
+                foreach (OutputInfo item in inputinfo)
+                {
+                    DataProvider.Ins.DB.OutputInfoes.Remove(item);
+
+                }
+                var input = DataProvider.Ins.DB.Outputs.SingleOrDefault(x => x.Id == SelectedItemOutput.Id);
+
+                DataProvider.Ins.DB.Outputs.Remove(input);
+                ListOutput.Remove(input);
+                DataProvider.Ins.DB.SaveChanges();
 
             });
         }

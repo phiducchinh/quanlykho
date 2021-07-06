@@ -13,7 +13,16 @@ namespace QuanLyKho.ViewModel
     public class MainViewModel: BaseViewModel
     {
         private ObservableCollection<TonKho> _TonKhoList;
-        
+        private ObservableCollection<Unit> _Unit;
+
+
+        private string _LuongNhap;
+        private string _LuongXuat;
+        private int _TonKho;
+        private TonKho _SelectedTK;
+        private string _DonVi;
+
+
         public bool IsLoaded = false;
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand UnitCommand { get; set; }
@@ -38,6 +47,119 @@ namespace QuanLyKho.ViewModel
             }
         }
 
+        public string LuongNhap
+        {
+            get
+            {
+                return _LuongNhap;
+            }
+
+            set
+            {
+                _LuongNhap = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LuongXuat
+        {
+            get
+            {
+                return _LuongXuat;
+            }
+
+            set
+            {
+                _LuongXuat = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int TonKho
+        {
+            get
+            {
+                return _TonKho;
+            }
+
+            set
+            {
+                _TonKho = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TonKho SelectedTK
+        {
+            get
+            {
+                return _SelectedTK;
+            }
+
+            set
+            {
+                _SelectedTK = value;
+                OnPropertyChanged();
+                if (SelectedTK != null)
+                {
+                    LoginWindow loginWindow = new LoginWindow();
+                    var loginVM = loginWindow.DataContext as LoginViewModel;
+                    //MessageBox.Show(loginVM.User.DisplayName.ToString());
+
+                    var objectchon = DataProvider.Ins.DB.Objects.Where(x=>x.Id== SelectedTK.Object.Id).SingleOrDefault();
+                    var objectListNhap = DataProvider.Ins.DB.InputInfoes.Where(v=>v.IdObject==objectchon.Id);
+                    int sumInput = 0;
+                    foreach (var item in objectListNhap)
+                    {                      
+                        sumInput += (int) item.Count;
+                       
+                    }
+                    string a = SelectedTK.Object.Unit.DisplayName.ToString();
+                    LuongNhap = sumInput.ToString()+ " (" + a + ")";
+
+                   
+                    var objectListXuat = DataProvider.Ins.DB.OutputInfoes.Where(v => v.IdObject == objectchon.Id);
+                    int sumOutput = 0;
+                    foreach (var item in objectListXuat)
+                    {
+                        sumOutput += (int)item.Count;
+
+                    }
+                    LuongXuat = sumOutput.ToString() + " (" + SelectedTK.Object.Unit.DisplayName + ")";
+                    TonKho = sumInput - sumOutput;
+
+                    
+                }
+            }
+        }
+
+        public string DonVi
+        {
+            get
+            {
+                return _DonVi;
+            }
+
+            set
+            {
+                _DonVi = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Unit> Unit
+        {
+            get
+            {
+                return _Unit;
+            }
+
+            set
+            {
+                _Unit = value;
+            }
+        }
+
         public MainViewModel()
         {
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -53,6 +175,7 @@ namespace QuanLyKho.ViewModel
                     return;
 
                 var loginVM = loginWindow.DataContext as LoginViewModel;
+
                 if (loginVM.IsLogin)
                 {
                     p.Show();
@@ -79,6 +202,8 @@ namespace QuanLyKho.ViewModel
 
         void LoadTonKhoData()
         {
+
+            Unit = new ObservableCollection<Model.Unit>(DataProvider.Ins.DB.Units);
             TonKhoList = new ObservableCollection<TonKho>();
 
             int i = 1;

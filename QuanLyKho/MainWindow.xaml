@@ -245,7 +245,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16 16 16 4">Lượng nhập</TextBlock>
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="123"></TextBlock>
+                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding LuongNhap}"></TextBlock>
                                            
                                                 <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
                                                     <StackPanel>
@@ -267,7 +267,10 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16 16 16 4">Lượng xuất</TextBlock>
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="123"></TextBlock>
+                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding LuongXuat}">
+                                                
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding DonVi}"></TextBlock>
 
                                             <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
                                                 <StackPanel>
@@ -289,7 +292,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Margin="16 16 16 4">Tồn kho</TextBlock>
                                             <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
-                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="123"></TextBlock>
+                                            <TextBlock Grid.Row="2" Margin="16 0 16 8" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding TonKho}"></TextBlock>
 
                                             <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
                                                 <StackPanel>
@@ -322,11 +325,11 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Grid.Column="0">
-                                    <DatePicker Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    <DatePicker Width="100" SelectedDate="{Binding DateStart, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
-                                    <DatePicker Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    <DatePicker Width="100" SelectedDate="{Binding DateEnd, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -338,7 +341,7 @@
                             <Separator Margin="5"></Separator>
                         </Grid>
                         <Grid Grid.Row="2">
-                            <ListView ItemsSource="{Binding TonKhoList}">
+                            <ListView ItemsSource="{Binding TonKhoList}" SelectedItem="{Binding SelectedTK, Mode=OneWayToSource}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>

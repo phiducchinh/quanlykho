@@ -15,7 +15,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource MainVM}"
+        DataContext="{StaticResource UserVM}"
         
         ResizeMode="NoResize"
         WindowStyle="None"
